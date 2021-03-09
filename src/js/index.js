@@ -1,11 +1,10 @@
 // 이 작업을 할 때는 IIFE를 그냥 사용하지 않는 것으로 합니다. 어차피 나중에 웹팩으로 말것이기 때문에
 // jQuery를 사용하지 않습니다.
-// 일반적으로 최상단은 #app 을 쓰는것이 좋습니다. (카멜 케이스를 줄이기 위한 짧은 단어)
 $(function () {
-  const $coll = $("#imgDirectory");
-  const $listDir = $coll.find(".list_dir");
+  const $coll = $('#app');
+  const $listDir = $coll.find('.list_dir');
 
-  const url = "https://zl3m4qq0l9.execute-api.ap-northeast-2.amazonaws.com/dev";
+  const url = 'https://zl3m4qq0l9.execute-api.ap-northeast-2.amazonaws.com/dev';
   const data = {};
 
   // API의 설정을 관리하는 급이 아닌 직접 데이터를 가져올 때 쓰는 함수의 경우 추상적인 이름을 사용하지 않는게 좋습니다.
@@ -15,16 +14,16 @@ $(function () {
   // 그리고 가급적이면 역할을 그냥 분리해주는 편이 좋습니다. 가져오는 것은 가져오는 것까지만 하면 되고, dir setting 은 따로 합니다.
   const getApiData = function (url) {
     fetch(url, {
-      method: "GET",
+      method: 'GET',
     })
       .then((res) => res.json())
       .then((response) => {
-        console.log("Success:", JSON.stringify(response));
+        console.log('Success:', JSON.stringify(response));
         setDir(response);
         // return response.json();
       })
       .catch((error) => {
-        console.log("Error:", error);
+        console.log('Error:', error);
       });
   };
 
@@ -32,17 +31,17 @@ $(function () {
   // type: DIRECTORY, FILE
   // const sample = {
   //   filePath: null,
-  //   id: "1",
-  //   name: "노란고양이",
+  //   id: '1',
+  //   name: '노란고양이',
   //   parent: null,
-  //   type: "DIRECTORY",
+  //   type: 'DIRECTORY',
   // };
   // data 라는 변수명을 쓰지 않는 것이 좋습니다. data 가 아닌 객체가 있을지 생각해 봅시다. 모든 가공되지 않은 정보는 data 이기 때문에 혼란이 있습니다.
   const setDir = function (data) {
-    let imgUrl = "";
+    let imgUrl = '';
     for (let i = 0; i < data.length; i++) {
       imgUrl =
-        data[i].filePath === null ? "./img/img_folder.png" : data[i].filePath; // todo-이미지받아오기;;
+        data[i].type === 'DIRECTORY' ? './assets/img_folder.png' : data[i].filePath;
       $listDir.append(
         `<li><a href="javascript:;"><img src="${imgUrl}" alt=""><span class="tit_dir">${data[i].name}</span></a></li>`
       );
@@ -54,7 +53,7 @@ $(function () {
   let currentDirectories = [];
   const getDirectories = async () => {
     const requestURL =
-      "https://zl3m4qq0l9.execute-api.ap-northeast-2.amazonaws.com/dev";
+      'https://zl3m4qq0l9.execute-api.ap-northeast-2.amazonaws.com/dev';
 
     // 상단에서 then => await 한번으로 생각하면 됩니다.
     const response = await fetch(requestURL);
