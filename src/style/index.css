@@ -16,7 +16,7 @@ time, mark, audio, video {margin:0;padding:0;border:0;font-size:100%;font:inheri
 /* HTML5 display-role reset for older browsers */
 article, aside, details, figcaption, figure, 
 footer, header, hgroup, menu, nav, section {display:block}
-body {line-height:1}
+body {position:relative;line-height:1}
 ol, ul {list-style:none}
 a{color:inherit;text-decoration:none}
 blockquote, q {quotes:none}
@@ -24,14 +24,19 @@ blockquote:before, blockquote:after,
 q:before, q:after {content:'';content:none}
 table {border-collapse:collapse;border-spacing:0}
 
-#imgDirectory{padding:20px}
-#imgDirectory .cont_path{display:table}
-#imgDirectory .tit_path{display:table-cell;padding-top:3px;vertical-align:middle}
-#imgDirectory .btn_back{display:table-cell;width:20px;height:20px;margin:10px;vertical-align:top;background:url('./img/icon_back.png') no-repeat;background-size:20px 20px;border:0 none;text-indent:-9999px;}
+#loading{position:absolute;top:0;left:0;z-index:10;background:#fff;opacity:0;-webkit-transition: opacity 1s ease-out;-moz-transition: opacity 1s ease-out;-o-transition: opacity 1s ease-out;transition: opacity 1s ease-out}
+#loading.on{opacity: 1}
+#loading.on .ico_loading{opacity:1;-webkit-transition: opacity 2s ease-out;-moz-transition: opacity 2s ease-out;-o-transition: opacity 2s ease-out;transition: opacity 2s ease-out}
+#loading .ico_loading{position:absolute;display:inline-block;top:50%;left:50%;width:32px;height:32px;margin:-16px 0 0 -16px;background:url('./../assets/ico_loading.gif');text-indent:-9999px;opacity:0}
 
-#imgDirectory .list_dir{overflow:hidden;margin-top:10px;padding:10px 0;border-top:1px solid #999}
-#imgDirectory .list_dir li{float:left;width:20%;padding:5px;text-align:center;box-sizing:border-box}
-#imgDirectory .list_dir li:nth-child(5n){margin-right:0}
-#imgDirectory .list_dir a{display:inline-block;width:100%;height:100%}
-#imgDirectory .tit_dir{display:block}
+
+#app{padding:20px}
+#app .tit_path{padding:10px;border-bottom:1px solid #999}
+
+#app .btn_back{display:inline-block;width:64px;height:64px;margin:10px;background:url('./../assets/ico_back.png') no-repeat;border:0 none;text-indent:-9999px;}
+
+#app .node{float:left;width:20%;padding:5px;text-align:center;box-sizing:border-box}
+#app .node:nth-child(5n){margin-right:0}
+#app .node a{display:inline-block;width:100%;height:100%}
+#app .tit_dir{display:block}
 

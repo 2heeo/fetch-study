@@ -5,31 +5,64 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <link rel="stylesheet" href="./index.css">
-  <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-  <script type="text/javascript" src="./index.js"></script> 
-
-  <title>fecth 스터디</title>
+  <link rel="stylesheet" href="./style/index.css">
+  <title>Album</title>
 </head>
 <body>
-  <div id="app">
-    <div class="cont_path">
-      <button class="btn_back">뒤로가기</button>
-      <div class="tit_path">
-        <strong>path/</strong>
-      </div>  
-    </div>
-    
-    <div class="cont_dir">
-      <ul class="list_dir">
-        <!-- <li>
-          <a href="javascript:;">
-            <img src="./assets/img_folder.png" alt="">
-            <span class="tit_dir">파일명</span>
-          </a>
-        </li> -->
-      </ul>
-    </div>
+  <div id="loading">
+    <span class="ico_loading">로딩중</span>
   </div>
+  <div id="app">      
+    <div class="tit_path">
+      <strong>path/</strong>
+    </div>
+
+    <div>
+      <div class="node">
+        <button class="btn_back">뒤로가기</button>  
+      </div>
+      <div class="node">
+        <a href="javascript:;">
+          <img src="./assets/img_folder.png" alt="">
+          <span class="tit_dir">파일명</span>
+        </a>
+      </div>
+      <div class="node">
+        <a href="javascript:;">
+          <img src="./assets/img_folder.png" alt="">
+          <span class="tit_dir">파일명</span>
+        </a>
+      </div>
+      <div class="node">
+        <a href="javascript:;">
+          <img src="./assets/img_folder.png" alt="">
+          <span class="tit_dir">파일명</span>
+        </a>
+      </div>
+      <div class="node">
+        <a href="javascript:;">
+          <img src="./assets/img_folder.png" alt="">
+          <span class="tit_dir">파일명</span>
+        </a>
+      </div>
+      <div class="node">
+        <a href="javascript:;">
+          <img src="./assets/img_folder.png" alt="">
+          <span class="tit_dir">파일명</span>
+        </a>
+      </div>
+      <div class="node">
+        <a href="javascript:;">
+          <img src="./assets/img_folder.png" alt="">
+          <span class="tit_dir">파일명</span>
+        </a>
+      </div>
+    </div>
+
+  </div>
+  
+  <script type="text/javascript" src="./js/components/Loading/index.js"></script>
+  <script type="text/javascript" src="./js/components/Album/index.js"></script>
+  <script type="text/javascript" src="./js/index.js"></script>  
 </body>
 </html>
