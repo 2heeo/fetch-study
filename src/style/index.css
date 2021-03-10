@@ -24,11 +24,10 @@ blockquote:before, blockquote:after,
 q:before, q:after {content:'';content:none}
 table {border-collapse:collapse;border-spacing:0}
 
-#loading{position:absolute;top:0;left:0;z-index:10;background:#fff;opacity:0;-webkit-transition: opacity 1s ease-out;-moz-transition: opacity 1s ease-out;-o-transition: opacity 1s ease-out;transition: opacity 1s ease-out}
-#loading.on{opacity: 1}
+#loading{position:fixed;top:0;left:0;right:0;bottom:0;background:#fff;opacity:0;-webkit-transition: opacity 1s ease-out;-moz-transition: opacity 1s ease-out;-o-transition: opacity 1s ease-out;transition: opacity 1s ease-out}
+#loading.on{opacity:1}
 #loading.on .ico_loading{opacity:1;-webkit-transition: opacity 2s ease-out;-moz-transition: opacity 2s ease-out;-o-transition: opacity 2s ease-out;transition: opacity 2s ease-out}
 #loading .ico_loading{position:absolute;display:inline-block;top:50%;left:50%;width:32px;height:32px;margin:-16px 0 0 -16px;background:url('./../assets/ico_loading.gif');text-indent:-9999px;opacity:0}
-
 
 #app{padding:20px}
 #app .tit_path{padding:10px;border-bottom:1px solid #999}
