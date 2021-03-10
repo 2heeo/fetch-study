@@ -4,10 +4,10 @@ class Loading {
   }
 
   on() {
-    this.loadingElement.classList.add('on');
+    this.loadingElement.style.display = 'block';
   }
 
   off() {
-    this.loadingElement.classList.remove('on');
+    this.loadingElement.style.display = 'none';
   }
 }
