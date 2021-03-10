@@ -4,8 +4,6 @@ class Album {
     this.breadcrumb = [];
     
     this.appElement = document.querySelector(appSelector);
-
-    console.log(this.appElement);
   }
 
   init() {

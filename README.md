@@ -25,3 +25,9 @@ $ npm install http-server
 ```bash
 $ npm start
 ```
+
+
+### 참고
+- css flex: https://heropy.blog/2018/11/24/css-flexible-box/
+- css grid: https://heropy.blog/2019/08/17/css-grid/
+- css grid: https://studiomeal.com/archives/533
