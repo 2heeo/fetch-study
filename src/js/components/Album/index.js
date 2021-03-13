@@ -1,6 +1,6 @@
 class Album {
   constructor (appSelector) {
-    this.node = [];
+    this.finder = [];
     this.breadcrumb = [];
     
     this.appElement = document.querySelector(appSelector);
