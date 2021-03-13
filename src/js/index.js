@@ -1,7 +1,7 @@
 const app = new Album('#app');
 const loading = new Loading();
 const breadcrumb = new Breadcrumb();
-const node = new Node();
+const finder = new Finder();
 
 
 app.init();
@@ -12,5 +12,5 @@ app.init();
 breadcrumb.setBreadcrumb();
 breadcrumb.editBreadcrumb();
 
-node.init();
+finder.init();
 

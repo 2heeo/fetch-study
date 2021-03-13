@@ -1,9 +1,9 @@
-class Node {
+class Finder {
   constructor() {
     this.parentsElement = document.querySelector('#app');
-    this.nodeWrapperElement = Node.createNodeWrapperElement();
-    this.backBtnElement = Node.createBackBtnElement();
-    this.nodeElements = Node.createNodeElement();
+    this.nodeWrapperElement = Finder.createNodeWrapperElement();
+    this.backBtnElement = Finder.createBackBtnElement();
+    this.nodeElements = Finder.createNodeElement();
   }
 
   init() {
