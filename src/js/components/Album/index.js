@@ -8,6 +8,9 @@ class Album {
 
   init() {
     this.render();
+
+    // 함수 호출
+    // console.log(responseBody);
   }
 
   render() {
