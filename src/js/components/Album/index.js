@@ -34,13 +34,12 @@ class Album {
   }
 
   getFileId(responseBody) {
-    const node = this.appElement.getElementsByClassName('node');
+    const nodes = this.appElement.querySelector('.node');
 
-    console.log(node);
-    node.addEventListener('click', (e) => {
+    this.appElement.addEventListener('click', nodes, (e) => {
       const currentTarget = e.currentTarget;
 
-      console.log(currentTarget);
+      console.log(11, currentTarget);
 
       return responseBody[node.indexof(currentTarget)];
     });
