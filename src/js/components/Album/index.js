@@ -22,13 +22,16 @@ class Album {
     this.loading.on();
 
     const responseBody = await window.api.fetchAlbumFiles();
-    
+
     this.finder.set(responseBody);
     this.loading.off();
     this.render();
+
+    console.log(responseBody);
   }
 
   render() {
+    this.breadcrumb.render();
     this.finder.render();
   }
 }
