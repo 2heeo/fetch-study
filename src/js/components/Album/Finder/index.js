@@ -1,20 +1,24 @@
 class Finder {
   constructor() {
-    this.parentsElement = document.querySelector('#app');
+    this.parentElement = document.querySelector('#app');
     this.nodeWrapperElement = Finder.createNodeWrapperElement();
     this.backBtnElement = Finder.createBackBtnElement();
-    this.nodeElements = Finder.createNodeElement();
+    // this.nodeElements = Finder.createNodeElement();
+    this.nodeElements = null;
+    this.nodes = [];
+
+    this.init();
   }
 
   init() {
-    this.parentsElement.appendChild(this.nodeWrapperElement);
+    this.parentElement.appendChild(this.nodeWrapperElement);
     this.nodeWrapperElement.appendChild(this.backBtnElement);
     
     // todo-heeo. clone 말고...여기서 말고...ㅜㅜ
     // this.nodeWrapperElement.appendChild(this.nodeElements);
-    for(let i = 0; i < 7; i++) {
-      this.nodeWrapperElement.appendChild(this.nodeElements.cloneNode(true));
-    }
+    // for(let i = 0; i < 7; i++) {
+    //   this.nodeWrapperElement.appendChild(this.nodeElements.cloneNode(true));
+    // }
   }
 
   static createNodeWrapperElement() {
@@ -38,7 +42,8 @@ class Finder {
     return backBtnWrapper;
   }
 
-  static createNodeElement(albumData = []) {
+  // todo-heeo. 진리의 원천 조사..!
+  static nodeWrapperElement(albumData = []) {
     //todo-heeo. albumData 연결
     
     let nodeElement = document.createElement('div');
@@ -57,5 +62,23 @@ class Finder {
     // }
 
     return nodeElement;
+  }
+
+  set(files = []) {
+    this.nodes = files;
+  }
+
+  render() {
+    const fileElements = this.nodes.map(node => {
+      const imageSource = node.type  === 'DIRECTORY' ? './assets/img_folder.png' : './assets/img_file.png';
+
+      return `
+        <div class="node">
+          <img src="${imageSource}" alt=""/>
+          <span class="name_node">${node.name}</span>
+        </div>
+      `
+    }).join('');
+    this.nodeWrapperElement.innerHTML = fileElements;
   }
 }
