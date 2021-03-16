@@ -35,4 +35,4 @@ table {border-collapse:collapse;border-spacing:0}
 
 #app .cont_node{display:flex;flex-direction:row;flex-wrap:wrap}
 #app .node{width:100px;margin:10px;text-align:center;box-sizing:border-box}
-#app .name_node{overflow:hidden;display:block;width:100px;text-overflow:ellipsis;white-space:nowrap;}
+#app .name_node{overflow:hidden;display:block;width:100px;text-overflow:ellipsis;white-space:nowrap;line-height:21px}
