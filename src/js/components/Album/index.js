@@ -1,7 +1,9 @@
 class Album {
   constructor (appSelector) {
-    this.finder = [];
-    this.breadcrumb = [];
+    this.finder = new Finder();
+    this.breadcrumb = new Breadcrumb();
+    this.loading = new Loading();
+    this.imageViewer = null;
     
     this.appElement = document.querySelector(appSelector);
   }
@@ -10,18 +12,23 @@ class Album {
   // 사용하는 곳에서도 async-await를 써야한다.
   // 안그러면 데이터가 아니라 Promise가 반환됨
   async init() {
-    this.render();
-
-    const responseBody = await window.api.fetchAlbumFiles();
-    console.log(responseBody);
-
+    // before
     // window.api.fetchAlbumFiles()
     // .then((responseBody) => {
     //   console.log(responseBody);
     // });
+
+    // after
+    this.loading.on();
+
+    const responseBody = await window.api.fetchAlbumFiles();
+    
+    this.finder.set(responseBody);
+    this.loading.off();
+    this.render();
   }
 
   render() {
-    this.appElement.innerHTML = '<div>Album</div>';
+    this.finder.render();
   }
 }

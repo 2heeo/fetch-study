@@ -5,9 +5,9 @@ const requestURL = "https://zl3m4qq0l9.execute-api.ap-northeast-2.amazonaws.com/
 
 const fetchAlbumFiles = async () => {
   // before
-  fetch(requestURL)
-    .then(response => response.json())
-    .then(responseBody => console.log(responseBody));
+  // fetch(requestURL)
+  //   .then(response => response.json())
+  //   .then(responseBody => console.log(responseBody));
 
   // after
   const response = await fetch(requestURL);
