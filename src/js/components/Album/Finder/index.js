@@ -11,12 +11,6 @@ class Finder {
 
   init() {
     this.parentElement.appendChild(this.nodeWrapperElement);
-    
-    // todo-heeo. clone 말고...여기서 말고...ㅜㅜ
-    // this.nodeWrapperElement.appendChild(this.nodeElements);
-    // for(let i = 0; i < 7; i++) {
-    //   this.nodeWrapperElement.appendChild(this.nodeElements.cloneNode(true));
-    // }
   }
 
   static createNodeWrapperElement() {
@@ -29,22 +23,13 @@ class Finder {
 
   // todo-heeo. 진리의 원천 조사..!
   static nodeWrapperElement(albumData = []) {
-    //todo-heeo. albumData 연결
-    
     let nodeElement = document.createElement('div');
     const nodeName = document.createElement('span');
     
-    // let nodeImg = '';
-    // let nodeName = '';
-
     nodeElement.classList.add('node');
     nodeName.classList.add('name_node');
 
     nodeElement.innerHTML = '<img src="./assets/img_folder.png" alt=""><span class="name_node">파일명</span>';
-
-    // for(let i=0; i < albumData.length; i++) {
-    //   albumImg = albumData[i].type === 'DIRECTORY' ? './../../../assets/img_folder.png' : albumData[i].filePath;
-    // }
 
     return nodeElement;
   }
