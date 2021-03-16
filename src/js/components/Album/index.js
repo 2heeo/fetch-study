@@ -21,13 +21,29 @@ class Album {
     // after
     this.loading.on();
 
-    const responseBody = await window.api.fetchAlbumFiles();
+    const requestURL = "https://zl3m4qq0l9.execute-api.ap-northeast-2.amazonaws.com/dev";
+    const responseBody = await window.api.fetchAlbumFiles(requestURL);
 
     this.finder.set(responseBody);
     this.loading.off();
     this.render();
 
     console.log(responseBody);
+
+    this.getFileId(responseBody);
+  }
+
+  getFileId(responseBody) {
+    const node = this.appElement.getElementsByClassName('node');
+
+    console.log(node);
+    node.addEventListener('click', (e) => {
+      const currentTarget = e.currentTarget;
+
+      console.log(currentTarget);
+
+      return responseBody[node.indexof(currentTarget)];
+    });
   }
 
   render() {
