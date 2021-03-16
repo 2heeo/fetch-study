@@ -2,7 +2,6 @@ class Finder {
   constructor() {
     this.parentElement = document.querySelector('#app');
     this.nodeWrapperElement = Finder.createNodeWrapperElement();
-    this.backBtnElement = Finder.createBackBtnElement();
     // this.nodeElements = Finder.createNodeElement();
     this.nodeElements = null;
     this.nodes = [];
@@ -12,7 +11,6 @@ class Finder {
 
   init() {
     this.parentElement.appendChild(this.nodeWrapperElement);
-    this.nodeWrapperElement.appendChild(this.backBtnElement);
     
     // todo-heeo. clone 말고...여기서 말고...ㅜㅜ
     // this.nodeWrapperElement.appendChild(this.nodeElements);
@@ -27,19 +25,6 @@ class Finder {
     nodeWrapper.classList.add('cont_node');
 
     return nodeWrapper;
-  }
-
-  static createBackBtnElement() {
-    const backBtnWrapper = document.createElement('div');
-    const backBtn = document.createElement('button');
-    const backBtnText = document.createTextNode('뒤로가기');
-
-    backBtnWrapper.classList.add('node');
-    backBtn.classList.add('btn_back');
-    backBtn.appendChild(backBtnText);
-    backBtnWrapper.appendChild(backBtn);
-
-    return backBtnWrapper;
   }
 
   // todo-heeo. 진리의 원천 조사..!
@@ -69,6 +54,8 @@ class Finder {
   }
 
   render() {
+    const backBtnElement = '<div class="node"><button class="btn_back">뒤로가기</button></div>';
+
     const fileElements = this.nodes.map(node => {
       const imageSource = node.type  === 'DIRECTORY' ? './assets/img_folder.png' : './assets/img_file.png';
 
@@ -79,6 +66,8 @@ class Finder {
         </div>
       `
     }).join('');
-    this.nodeWrapperElement.innerHTML = fileElements;
+
+    // todo-heeo. breadcrumb의 depth에 따라 뒤로가기 버튼 노출 유무 제어
+    this.nodeWrapperElement.innerHTML = backBtnElement + fileElements;
   }
 }
