@@ -38,11 +38,15 @@ class Finder {
     this.nodes = files;
   }
 
+  reset() {
+    this.parentElement.querySelector('.cont_node').innerHTML = '';
+  }
+
   render() {
     const backBtnElement = '<div class="node"><button class="btn_back">뒤로가기</button></div>';
 
     const fileElements = this.nodes.map(node => {
-      const imageSource = node.type  === 'DIRECTORY' ? './assets/img_folder.png' : './assets/img_file.png';
+      const imageSource = node.type  === 'DIRECTORY' ? './assets/img_folder.png' : './assets/img_image.png';
 
       return `
         <div class="node">
@@ -52,7 +56,6 @@ class Finder {
       `
     }).join('');
 
-    // todo-heeo. breadcrumb의 depth에 따라 뒤로가기 버튼 노출 유무 제어
-    this.nodeWrapperElement.innerHTML = backBtnElement + fileElements;
+    this.nodeWrapperElement.innerHTML = this.nodes[0].parent === null ? fileElements : backBtnElement + fileElements;
   }
 }
