@@ -4,6 +4,9 @@ class Album {
     this.breadcrumb = new Breadcrumb();
     this.loading = new Loading();
     this.imageViewer = null;
+
+    this.requestURL = 'https://zl3m4qq0l9.execute-api.ap-northeast-2.amazonaws.com/dev';
+    this.fileId = '';
     
     this.appElement = document.querySelector(appSelector);
   }
@@ -19,34 +22,53 @@ class Album {
     // });
 
     // after
+    // this.loading.on();
+    // const responseBody = await window.api.fetchAlbumFiles(requestURL);
+    // this.finder.set(responseBody);
+    // this.loading.off();
+
+    this.render(this.requestURL);
+  }
+
+  async render(requestURL) {
     this.loading.on();
-
-    const requestURL = "https://zl3m4qq0l9.execute-api.ap-northeast-2.amazonaws.com/dev";
     const responseBody = await window.api.fetchAlbumFiles(requestURL);
-
     this.finder.set(responseBody);
     this.loading.off();
-    this.render();
 
-    console.log(responseBody);
-
-    this.getFileId(responseBody);
-  }
-
-  getFileId(responseBody) {
-    const nodes = this.appElement.querySelector('.node');
-
-    this.appElement.addEventListener('click', nodes, (e) => {
-      const currentTarget = e.currentTarget;
-
-      console.log(11, currentTarget);
-
-      return responseBody[node.indexof(currentTarget)];
-    });
-  }
-
-  render() {
-    this.breadcrumb.render();
+    this.breadcrumb.render(responseBody);
     this.finder.render();
+
+    this.clickDirectory(responseBody);
+  }
+
+  reset() {
+    this.appElement.innerHtml = '';
+  }
+
+  clickDirectory(responseBody) {
+    const nodes = this.appElement.querySelectorAll('.node');
+    let clickedDirId = '';
+
+    this.appElement.addEventListener('click', (event) => {      
+      const path = event.path;
+      const isRootDirectory = responseBody[0].parent === null;  
+
+      path.some(el => {
+        console.log(el);
+        if(typeof el !== undefined && el?.classList.contains('node')) {
+          const clickedDirIndex = isRootDirectory ? Array.from(nodes).indexOf(el) : Array.from(nodes).indexOf(el) + 1;
+
+          clickedDirId = `/${responseBody[clickedDirIndex].id}`;
+          console.log(`id = ${clickedDirId}`);
+          return true;
+        }
+      });
+
+      this.requestURL = this.requestURL + clickedDirId;
+      
+      this.reset();
+      this.render(this.requestURL);
+    });
   }
 }
