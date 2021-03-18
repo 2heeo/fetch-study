@@ -31,7 +31,7 @@ table {border-collapse:collapse;border-spacing:0}
 
 #app .breadcrumb{padding:10px 0;border-bottom:1px solid #999}
 
-#app .btn_back{display:inline-block;width:64px;height:64px;margin-top:10px;background:url('./../assets/ico_back.png') no-repeat;border:0 none;text-indent:-9999px;}
+#app .btn_back{display:inline-block;width:64px;height:64px;margin-top:10px;background:url('./../assets/ico_back.png') no-repeat;border:0 none;text-indent:-9999px;outline:none}
 
 #app .cont_node{display:flex;flex-direction:row;flex-wrap:wrap}
 #app .node{width:100px;margin:10px;text-align:center;box-sizing:border-box}
