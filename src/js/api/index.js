@@ -1,7 +1,9 @@
 // todo-heeo.
 // 프로미즈, async, await, response(응답객체), res.json 공부
 
-const fetchAlbumFiles = async (requestURL) => {
+const fetchAlbumFiles = async (nodeId = '') => {
+  const requestURL = `https://zl3m4qq0l9.execute-api.ap-northeast-2.amazonaws.com/dev/${nodeId}`;
+
   // before
   // fetch(requestURL)
   //   .then(response => response.json())
