@@ -49,7 +49,7 @@ class Finder {
       const imageSource = node.type  === 'DIRECTORY' ? './assets/img_folder.png' : './assets/img_image.png';
 
       return `
-        <div class="node" data-id="${node.id}">
+        <div class="node" data-id="${node.id}" data-type="${node.type}">
           <img src="${imageSource}" alt=""/>
           <span class="name_node">${node.name}</span>
         </div>

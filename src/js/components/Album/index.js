@@ -39,6 +39,9 @@ class Album {
       if(!clickedFile) { // 1. null (node클래스를 가진 엘리먼트가 path에 없으면 null이고 return시킴)
         return;
       }
+      if(clickedFile.dataset.type === 'FILE') { // 이미지 파일 일 경우
+        return;
+      }
 
       // (그외) 2. data-id 가 있는 경우 > 폴더나 파일
       // (그외) 3. data-id 가 없는 경우 > 뒤로가기 버튼
