@@ -11,8 +11,8 @@ const findTargetElement = ({path, className}) => {
 };
 class Album {
   constructor (appSelector) {
-    this.finder = new Finder();
     this.breadcrumb = new Breadcrumb();
+    this.finder = new Finder();
     this.loading = new Loading();
     this.imageViewer = null;
 
@@ -21,9 +21,6 @@ class Album {
     this.appElement = document.querySelector(appSelector);
   }
 
-  // async-await 이 사용되는 함수 fetchAlbumFiles를 쓰려면
-  // 사용하는 곳에서도 async-await를 써야한다.
-  // 안그러면 데이터가 아니라 Promise가 반환됨
   async init() {
     this.bindEvents();
     await this.fetchFinder();
@@ -33,49 +30,61 @@ class Album {
     this.finder.nodeWrapperElement.addEventListener('click', async (event) => {
       const {path} = event;
       const clickedFile = findTargetElement({path, className: 'node'});
-      let nodeId = clickedFile.dataset.id;
-      
-      // console.log(clickedFile);
 
-      // 1. null (node클래스를 가진 엘리먼트가 path에 없으면 return)
       if(!clickedFile) {
         return;
       }
-      // 2. data-id 가 없는 경우 > 뒤로가기 버튼
-      if(clickedFile.dataset.id === undefined) {
-        // todo-heeo. parent id 흠..
-        // 버그 : node 외 클릭햇을때 에러남..appElement
-        nodeId = clickedFile.parentNode.children[1].dataset.parentId;
-      }
 
-      // (그외) 3. data-id 가 있는 경우 > 폴더나 파일
-      if(clickedFile.dataset.type === 'FILE') { // 이미지 파일 일 경우 retrun
-        return;
-      }
-
-      console.log(nodeId);
+      const {id: nodeId, type: nodeType} = clickedFile.dataset;
       
-      await this.fetchFinder(nodeId);
+      switch(nodeType) {
+        case 'FILE': {
+          console.log('clicked file');
+          break;
+        }
+        case 'DIRECTORY': {
+          await this.next(nodeId);
+          break;
+        }
+        default: {
+          console.log('clicked back button');
+          await this.back();
+          break;
+        }
+      }
     });
   }
 
-  async fetchFinder(nodeId = '') {
-    // before
-    // window.api.fetchAlbumFiles()
-    // .then((responseBody) => {
-    //   console.log(responseBody);
-    // });
+  async next(nodeId = '') {
+    const targetNode = this.finder.nodes.find((node) => node.id === nodeId);
+    
+    this.breadcrumb.next(targetNode);
+    await this.fetchFinder(nodeId);
+  }
 
-    // after
+  async back() {
+    this.breadcrumb.back();
+    
+    const parentNode = this.breadcrumb.getParentNode();
+    await this.fetchFinder(parentNode?.id);
+  }
+
+  async fetchFinder(nodeId = '') {
     this.loading.on();
+    const isRoot= !nodeId;
     const responseBody = await window.api.fetchAlbumFiles(nodeId);
-    this.finder.set(responseBody);
+    this.finder.set(responseBody, isRoot);
     this.render();
     this.loading.off();
   }
 
+  openImageViewer() {
+    
+  }
+
   render() {
     this.finder.render();
+    this.breadcrumb.render();
   }
 
   reset() {

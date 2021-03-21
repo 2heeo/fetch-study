@@ -1,13 +1,36 @@
 class Breadcrumb {
   constructor() {
     this.parentsElement = document.querySelector('#app');
+    this.wrapperElement = Breadcrumb.createBreadcrumbWrapper();
+    this.parentsElement.appendChild(this.wrapperElement);
+
+    this.history = [];
   }
 
-  render(responseBody = [], dirName = '') {
-    // 미완성..Album의 render() 에서 ..dirName 관련 지저분..어찌 처리 할 것인가..
-    const breadcrumbTxt = responseBody[0].parent === null ?  'ROOT' : 'ROOT' + ` > ${dirName}`;
-    const breadcrumbElement = `<div class="breadcrumb"><strong class="txt_breadcrumb">${breadcrumbTxt}</strong></div>`;
+  static createBreadcrumbWrapper() {
+    const wrapperElement = document.createElement('div');
+    wrapperElement.classList.add('breadcrumb');
 
-    this.parentsElement.insertAdjacentHTML('afterbegin', breadcrumbElement);
+    return wrapperElement;
+  }
+
+  next(node = {}) {
+    this.history.push(node);
+  }
+
+  back(node = {}) {
+    this.history.pop(node);
+  }
+
+  getParentNode() {
+    return this.history[this.history.length -1];
+  }
+
+  render() {
+    const ROOT = '<strong class="txt_breadcrumb">ROOT</strong>';
+    const historyElement = this.history
+      .map((node) => `<strong class="txt_breadcrumb"> &gt; ${node.name}</strong>`)
+      .join('');
+    this.wrapperElement.innerHTML = ROOT + historyElement;
   }
 }

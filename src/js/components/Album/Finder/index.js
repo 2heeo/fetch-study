@@ -4,6 +4,7 @@ class Finder {
     this.nodeWrapperElement = Finder.createNodeWrapperElement();
     this.nodeElements = null;
     this.nodes = [];
+    this.isRoot = true;
 
     this.init();
   }
@@ -20,7 +21,6 @@ class Finder {
     return nodeWrapper;
   }
 
-  // todo-heeo. 진리의 원천 조사..!
   static nodeWrapperElement(albumData = []) {
     let nodeElement = document.createElement('div');
     const nodeName = document.createElement('span');
@@ -33,8 +33,9 @@ class Finder {
     return nodeElement;
   }
 
-  set(files = []) {
+  set(files = [], isRoot = true) {
     this.nodes = files;
+    this.isRoot = isRoot;
   }
 
   render() {
@@ -52,7 +53,6 @@ class Finder {
       `
     }).join('');
 
-    // 아래 조건 고치기..
-    this.nodeWrapperElement.innerHTML = this.nodes[0].parent === null ? fileElements : backBtnElement + fileElements;
+    this.nodeWrapperElement.innerHTML = this.isRoot ? fileElements : backBtnElement + fileElements;
   }
 }

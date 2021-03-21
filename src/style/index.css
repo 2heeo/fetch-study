@@ -29,10 +29,8 @@ table {border-collapse:collapse;border-spacing:0}
 #app .loading{position:fixed;top:0;left:0;right:0;bottom:0;background:#fff}
 #app .ico_loading{position:absolute;display:inline-block;top:50%;left:50%;width:32px;height:32px;margin:-16px 0 0 -16px;background:url('./../assets/ico_loading.gif');text-indent:-9999px}
 
-#app .breadcrumb{padding:10px 0;border-bottom:1px solid #999}
-
 #app .btn_back{display:inline-block;width:64px;height:64px;margin-top:10px;background:url('./../assets/ico_back.png') no-repeat;border:0 none;text-indent:-9999px;outline:none}
 
-#app .cont_node{display:flex;flex-direction:row;flex-wrap:wrap}
+#app .cont_node{display:flex;flex-direction:row;flex-wrap:wrap;margin-top:10px;border-top:1px solid #999}
 #app .node{width:100px;margin:10px;text-align:center;box-sizing:border-box}
 #app .name_node{overflow:hidden;display:block;width:100px;text-overflow:ellipsis;white-space:nowrap;line-height:21px}
