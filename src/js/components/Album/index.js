@@ -1,37 +1,93 @@
+const findTargetElement = ({path, className}) => {
+  let clickedFile = null;
+  
+  path.forEach((element) => {
+    if(element?.classList?.contains('node')) {
+      clickedFile = element;
+    }
+  });
+
+  return clickedFile;
+};
 class Album {
   constructor (appSelector) {
-    this.finder = new Finder();
     this.breadcrumb = new Breadcrumb();
+    this.finder = new Finder();
     this.loading = new Loading();
     this.imageViewer = null;
+
+    this.fileId = '';
     
     this.appElement = document.querySelector(appSelector);
   }
 
-  // async-await 이 사용되는 함수 fetchAlbumFiles를 쓰려면
-  // 사용하는 곳에서도 async-await를 써야한다.
-  // 안그러면 데이터가 아니라 Promise가 반환됨
   async init() {
-    // before
-    // window.api.fetchAlbumFiles()
-    // .then((responseBody) => {
-    //   console.log(responseBody);
-    // });
+    this.bindEvents();
+    await this.fetchFinder();
+  }
 
-    // after
+  bindEvents() {
+    this.finder.nodeWrapperElement.addEventListener('click', async (event) => {
+      const {path} = event;
+      const clickedFile = findTargetElement({path, className: 'node'});
+
+      if(!clickedFile) {
+        return;
+      }
+
+      const {id: nodeId, type: nodeType} = clickedFile.dataset;
+      
+      switch(nodeType) {
+        case 'FILE': {
+          console.log('clicked file');
+          break;
+        }
+        case 'DIRECTORY': {
+          await this.next(nodeId);
+          break;
+        }
+        default: {
+          console.log('clicked back button');
+          await this.back();
+          break;
+        }
+      }
+    });
+  }
+
+  async next(nodeId = '') {
+    const targetNode = this.finder.nodes.find((node) => node.id === nodeId);
+    
+    this.breadcrumb.next(targetNode);
+    await this.fetchFinder(nodeId);
+  }
+
+  async back() {
+    this.breadcrumb.back();
+    
+    const parentNode = this.breadcrumb.getParentNode();
+    await this.fetchFinder(parentNode?.id);
+  }
+
+  async fetchFinder(nodeId = '') {
     this.loading.on();
-
-    const responseBody = await window.api.fetchAlbumFiles();
-
-    this.finder.set(responseBody);
-    this.loading.off();
+    const isRoot= !nodeId;
+    const responseBody = await window.api.fetchAlbumFiles(nodeId);
+    this.finder.set(responseBody, isRoot);
     this.render();
+    this.loading.off();
+  }
 
-    console.log(responseBody);
+  openImageViewer() {
+    
   }
 
   render() {
-    this.breadcrumb.render();
     this.finder.render();
+    this.breadcrumb.render();
+  }
+
+  reset() {
+    this.appElement.innerHtml = '';
   }
 }

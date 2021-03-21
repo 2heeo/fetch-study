@@ -2,9 +2,9 @@ class Finder {
   constructor() {
     this.parentElement = document.querySelector('#app');
     this.nodeWrapperElement = Finder.createNodeWrapperElement();
-    // this.nodeElements = Finder.createNodeElement();
     this.nodeElements = null;
     this.nodes = [];
+    this.isRoot = true;
 
     this.init();
   }
@@ -21,7 +21,6 @@ class Finder {
     return nodeWrapper;
   }
 
-  // todo-heeo. 진리의 원천 조사..!
   static nodeWrapperElement(albumData = []) {
     let nodeElement = document.createElement('div');
     const nodeName = document.createElement('span');
@@ -34,25 +33,26 @@ class Finder {
     return nodeElement;
   }
 
-  set(files = []) {
+  set(files = [], isRoot = true) {
     this.nodes = files;
+    this.isRoot = isRoot;
   }
 
   render() {
     const backBtnElement = '<div class="node"><button class="btn_back">뒤로가기</button></div>';
 
     const fileElements = this.nodes.map(node => {
-      const imageSource = node.type  === 'DIRECTORY' ? './assets/img_folder.png' : './assets/img_file.png';
+      const imageSource = node.type  === 'DIRECTORY' ? './assets/img_folder.png' : './assets/img_image.png';
+      const parentId = node.parent === null ? '' : node.parent.id;
 
       return `
-        <div class="node">
+        <div class="node" data-id="${node.id}" data-type="${node.type}" data-parent-id="${parentId}">
           <img src="${imageSource}" alt=""/>
           <span class="name_node">${node.name}</span>
         </div>
       `
     }).join('');
 
-    // todo-heeo. breadcrumb의 depth에 따라 뒤로가기 버튼 노출 유무 제어
-    this.nodeWrapperElement.innerHTML = backBtnElement + fileElements;
+    this.nodeWrapperElement.innerHTML = this.isRoot ? fileElements : backBtnElement + fileElements;
   }
 }
