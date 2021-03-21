@@ -2,7 +2,6 @@ class Finder {
   constructor() {
     this.parentElement = document.querySelector('#app');
     this.nodeWrapperElement = Finder.createNodeWrapperElement();
-    // this.nodeElements = Finder.createNodeElement();
     this.nodeElements = null;
     this.nodes = [];
 
@@ -38,24 +37,22 @@ class Finder {
     this.nodes = files;
   }
 
-  reset() {
-    this.parentElement.querySelector('.cont_node').innerHTML = '';
-  }
-
   render() {
     const backBtnElement = '<div class="node"><button class="btn_back">뒤로가기</button></div>';
 
     const fileElements = this.nodes.map(node => {
       const imageSource = node.type  === 'DIRECTORY' ? './assets/img_folder.png' : './assets/img_image.png';
+      const parentId = node.parent === null ? '' : node.parent.id;
 
       return `
-        <div class="node" data-id="${node.id}" data-type="${node.type}">
+        <div class="node" data-id="${node.id}" data-type="${node.type}" data-parent-id="${parentId}">
           <img src="${imageSource}" alt=""/>
           <span class="name_node">${node.name}</span>
         </div>
       `
     }).join('');
 
+    // 아래 조건 고치기..
     this.nodeWrapperElement.innerHTML = this.nodes[0].parent === null ? fileElements : backBtnElement + fileElements;
   }
 }

@@ -4,6 +4,7 @@
 const fetchAlbumFiles = async (nodeId = '') => {
   const requestURL = `https://zl3m4qq0l9.execute-api.ap-northeast-2.amazonaws.com/dev/${nodeId}`;
 
+  console.log(requestURL);
   // before
   // fetch(requestURL)
   //   .then(response => response.json())

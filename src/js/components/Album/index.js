@@ -32,22 +32,29 @@ class Album {
   bindEvents() {
     this.finder.nodeWrapperElement.addEventListener('click', async (event) => {
       const {path} = event;
-
       const clickedFile = findTargetElement({path, className: 'node'});
+      let nodeId = clickedFile.dataset.id;
+      
       // console.log(clickedFile);
 
-      if(!clickedFile) { // 1. null (node클래스를 가진 엘리먼트가 path에 없으면 null이고 return시킴)
+      // 1. null (node클래스를 가진 엘리먼트가 path에 없으면 return)
+      if(!clickedFile) {
         return;
       }
-      if(clickedFile.dataset.type === 'FILE') { // 이미지 파일 일 경우
+      // 2. data-id 가 없는 경우 > 뒤로가기 버튼
+      if(clickedFile.dataset.id === undefined) {
+        // todo-heeo. parent id 흠..
+        // 버그 : node 외 클릭햇을때 에러남..appElement
+        nodeId = clickedFile.parentNode.children[1].dataset.parentId;
+      }
+
+      // (그외) 3. data-id 가 있는 경우 > 폴더나 파일
+      if(clickedFile.dataset.type === 'FILE') { // 이미지 파일 일 경우 retrun
         return;
       }
 
-      // (그외) 2. data-id 가 있는 경우 > 폴더나 파일
-      // (그외) 3. data-id 가 없는 경우 > 뒤로가기 버튼
-
-      const nodeId = clickedFile.dataset.id;
-      // console.log(nodeId);
+      console.log(nodeId);
+      
       await this.fetchFinder(nodeId);
     });
   }
@@ -69,13 +76,6 @@ class Album {
 
   render() {
     this.finder.render();
-  }
-
-  isParentsNull(responseBody) {
-    const parentItems = responseBody.filter(item => item.parent === null);
-    
-    console.log(`부모가 없냐? ${parentItems.length !== 0}`);
-    return (parentItems.length !== 0);
   }
 
   reset() {
